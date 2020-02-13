@@ -5,7 +5,6 @@ create table branch( branchname varchar(10),branchcity varchar(20),assets real, 
 desc branch
 
 create table bankaccount( accno int,branchname varchar(30),balance real, primary key(accno),foreign key(branchname) references branch(branchname));
-
 desc bankaccount
 
 create table bankcustomer( customername varchar(30),customerstreet varchar(30),customercity varchar(30), primary key(customername));
@@ -17,6 +16,15 @@ desc depositer
 create table loan(loannumber int,branchname varchar(30), amount real, primary key(loannumber), foreign key(branchname) references branch (branchname));
 desc loan
 
+alter table branch 
+modify branchname varchar (40);
 
 
-select*from tab;
+insert into branch values ('SBI_Chamrajpet' , 'Bangalore' , 50000) ;
+insert into branch values ('SBI_ResidencyRoad' , 'Bangalore' , 10000) ;
+insert into branch values ('SBI_ShivajiRoad' , 'Bombay' , 20000);
+insert into branch values ('SBI_par1imentRoad' , 'Delhi' , 10000);
+insert into branch values ('SBI_Jantarmantar' , 'Delhi' , 20000);
+
+select * from branch;
+
