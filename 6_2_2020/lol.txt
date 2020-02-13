@@ -1,0 +1,1 @@
+create table branch( branchname varchar(10),branchcity varchar(20),assets real, primary key(branchname));
