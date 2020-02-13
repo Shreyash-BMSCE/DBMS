@@ -1,5 +1,16 @@
+create user shreyash identified by shreyash007;
+grant dba to shreyash;
+
 create table branch( branchname varchar(10),branchcity varchar(20),assets real, primary key(branchname));
+desc branch
+
 create table bankaccount( accno int,branchname varchar(30),balance real, primary key(accno),foreign key(branchname) references branch(branchname));
 
 desc bankaccount
+
+create table bankcustomer( customername varchar(30),customerstreet varchar(30),customercity varchar(30), primary key(customername));
+desc bankcustomer
+
+create table depositer( customername varchar(30),accno int, primary key(customername,accno), foreign key(customername) references bankcustomer(customername),foreign key(accno) references bankaccount(accno));
+desc depositer
 
