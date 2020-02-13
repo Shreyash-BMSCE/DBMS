@@ -14,3 +14,9 @@ desc bankcustomer
 create table depositer( customername varchar(30),accno int, primary key(customername,accno), foreign key(customername) references bankcustomer(customername),foreign key(accno) references bankaccount(accno));
 desc depositer
 
+create table loan(loannumber int,branchname varchar(30), amount real, primary key(loannumber), foreign key(branchname) references branch (branchname));
+desc loan
+
+
+
+select*from tab;
