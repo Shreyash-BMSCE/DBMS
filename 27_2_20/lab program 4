@@ -1,0 +1,32 @@
+select * from tab;
+
+create table STUDENT(snum integer, sname varchar(20), major varchar(20), lvl varchar(20), age integer, primary key (snum));
+
+create table CLASS(cname varchar2(20), meets_at timestamp,room varchar2(20),fid integer, primary key(cname), foreign key(fid) references FACULTY(fid));
+
+create table ENROLLED(snum integer, cname varchar(20), foreign key(snum) references STUDENT(snum),foreign key(cname) references CLASS(cname));
+
+create table FACULTY(fid integer, fname varchar(20), deptid integer, primary key(fid));
+
+/*drop table ENROLLED;
+
+drop table CLASS; */
+
+insert into STUDENT values(1,'a','cse','fr',18);
+insert into STUDENT values(2,'b','cse','fr',18);
+insert into STUDENT values(3,'c','cse','fr',18);
+insert into STUDENT values(4,'d','cse','fr',18);
+insert into STUDENT values(5,'e','cse','sr',18);
+insert into STUDENT values(6,'f','cse','sr',18);
+insert into STUDENT values(7,'g','cse','so',18);
+insert into STUDENT values(8,'h','cse','so',18);
+insert into STUDENT values(9,'i','cse','jr',18);
+insert into STUDENT values(10,'j','cse','jr',18);
+commit;
+insert into CLASS values('4c', ,'R128', );
+
+
+insert into 
+
+
+
