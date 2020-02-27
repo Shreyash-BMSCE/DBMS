@@ -26,7 +26,7 @@ commit;
 insert into CLASS values('4c', ,'R128', );
 
 
-insert into 
+insert into FACULTY values(1,'a1',01);
 
-
+commit;
 
