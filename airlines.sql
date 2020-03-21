@@ -8,6 +8,27 @@ CREATE TABLE flights(
     price INT
 );
 
+CREATE TABLE aircraft(
+    aid INT PRIMARY KEY,
+    aname VARCHAR(30),
+    arange INT
+);
+
+CREATE TABLE certified(
+    eid INT,
+    aid INT,
+    PRIMARY KEY(eid, aid),
+    FOREIGN KEY(eid) REFERENCES employee(eid),
+    FOREIGN KEY(aid) REFERENCES aircraft(aid)
+);
+
+CREATE TABLE employee(
+    eid INT PRIMARY KEY,
+    ename VARCHAR(30),
+    salary INT
+);
+
+
 INSERT INTO flights VALUES(1, 'helo', 'hell', 20, '02-12-2000 11:34:00', '02-11-2000 11:34:00', 20000);
 INSERT INTO flights VALUES(1, 'helo', 'hell', 20, '02-12-2000 11:34:00', '02-11-2000 11:34:00', 20000);
 INSERT INTO flights VALUES(1, 'helo', 'hell', 20, '02-12-2000 11:34:00', '02-11-2000 11:34:00', 20000);
@@ -20,11 +41,7 @@ select * from flights;
 
 
 
-CREATE TABLE aircraft(
-    aid INT PRIMARY KEY,
-    aname VARCHAR(30),
-    arange INT
-);
+
 
 INSERT INTO aircraft VALUES(1, 'MALAYSIAN AIRLINES', 20000);
 INSERT INTO aircraft VALUES(2, 'KINGFISHER AIRLINES', 30000);
@@ -36,13 +53,7 @@ select * from aircraft;
 
 
 
-CREATE TABLE certified(
-    eid INT,
-    aid INT,
-    PRIMARY KEY(eid, aid),
-    FOREIGN KEY(eid) REFERENCES employee(eid),
-    FOREIGN KEY(aid) REFERENCES aircraft(aid)
-);
+
 INSERT INTO certified VALUES(3, 1);
 INSERT INTO certified VALUES(3, 2);
 INSERT INTO certified VALUES(3, 3);
@@ -63,11 +74,6 @@ select * from certified;
 
 
 
-CREATE TABLE employee(
-    eid INT PRIMARY KEY,
-    ename VARCHAR(30),
-    salary INT
-);
 INSERT INTO employee VALUES(1, 'SAGAR', 90000);
 INSERT INTO employee VALUES(2, 'MANGAL', 63000);
 INSERT INTO employee VALUES(3, 'DRUDESH', 100000);
@@ -80,7 +86,8 @@ select * from employee;
 
 
 
-
+query 1) Find the names of aircraft such that all pilots certified to operate them have salaries more than
+Rs.80,000.
 
 select aname from aircraft
 where aircraft.aid in(
