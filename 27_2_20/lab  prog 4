@@ -1,0 +1,72 @@
+CREATE TABLE student1(
+snum INT,
+sname VARCHAR(10),
+major VARCHAR(10),
+lvl VARCHAR(2),
+age INT, primary key(snum));
+CREATE TABLE faculty(
+fid INT,fname VARCHAR(20),
+deptid INT,
+PRIMARY KEY(fid));
+CREATE TABLE class(
+cname VARCHAR(20),
+metts_at TIMESTAMP,
+room VARCHAR(10),
+fid INT,
+PRIMARY KEY(cname),
+FOREIGN KEY(fid) REFERENCES faculty(fid));
+CREATE TABLE enrolled(
+snum INT,
+cname VARCHAR(20),
+PRIMARY KEY(snum,cname),
+FOREIGN KEY(snum) REFERENCES student1(snum),
+FOREIGN KEY(cname) REFERENCES class(cname));
+INSERT INTO STUDENT1 VALUES('&snum', '&sname', '&major', '&lvl', '&age');
+select * from student1;
+INSERT INTO FACULTY VALUES(&FID, '&FNAME', &DEPTID);
+select * from faculty;
+commit;
+alter session set nls_timestamp_format = 'HH24:MI:SS';
+insert into class values('&cname', '&meets_at', '&room', '&fid');
+select * from class;
+commit;
+insert into enrolled values('&snum','&cname');
+select * from enrolled;
+SELECT DISTINCT sname
+FROM Student1 S, Class C, Enrolled E, Faculty F
+WHERE S.snum = E.snum AND E.cname = C.cname AND C.fid = F.fid AND
+F.fname ='prof.Murthy' AND S.lvl ='JR';
+SELECT C.cname
+FROM Class C
+WHERE C.room = 'R128'
+OR C.cname IN (SELECT E.cname
+FROM Enrolled E
+GROUP BY E.cname
+HAVING COUNT (*) >= 5);
+SELECT DISTINCT sname
+FROM Student1 S
+WHERE S.snum IN (SELECT E1.snum
+FROM Enrolled E1, Enrolled E2, Class C1, Class C2
+WHERE E1.snum = E2.snum
+AND E1.cname = C1.cname
+AND E2.cname = C2.cname AND C1.metts_at ='12:10:00');
+SELECT DISTINCT F.fname
+FROM Faculty F
+WHERE NOT EXISTS ((SELECT C.room FROM Class C )
+MINUS
+(SELECT C1.room
+FROM Class C1
+WHERE C1.fid = F.fid ));
+SELECT DISTINCT fname
+FROM Faculty F WHERE 5>(SELECT COUNT (E.snum)
+FROM Class C,Enrolled E WHERE C.cname=E.cname
+AND C.fid=F.fid);
+SELECT DISTINCT sname
+FROM student1 s WHERE s.snum NOT IN(SELECT e.snum from enrolled e);
+SELECT S.age,S.lvl
+FROM student1 S
+GROUP BY S.age,S.lvl
+HAVING S.lvl IN(SELECT S1.lvl FROM student1 S1 WHERE S1.age=S.age
+GROUP BY S1.lvl,S1.age
+HAVING COUNT(*)>=ALL(SELECT COUNT(*)
+FROM student1 S2 WHERE S1.age=S2.age GROUP BY S2.lvl,S2.age));
