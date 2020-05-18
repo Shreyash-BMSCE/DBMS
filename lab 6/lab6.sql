@@ -4,6 +4,8 @@ create table aircrafts(aid int,aname varchar(20),cruisingrange int,primary key(a
 
 create table employess(eid int,ename varchar(20),salary int,primary key(eid));create table certified(eid int,aid int,foreign key(eid) references employess(eid),foreign key(aid) references aircrafts(aid));
 
+create table certified( eid int, aid int, foreign key(eid) references employess(eid), foreign key(aid) references aircrafts(aid)); 
+
 insert into aircrafts values('&aid','&aname','&cruisingrange');
 commit;
 
